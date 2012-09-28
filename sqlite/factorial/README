@@ -1,0 +1,39 @@
+  This is some SQLite code that creates a sqlite database and some triggers
+that are used to calculate a factorial using pure SQL. 
+
+Running:
+	Precondition:
+		SQLite3 must be installed in your path. 
+		Python (If you want to use the run script)
+	Postcondition:
+		factorial.db is created an (optionally)
+		populated with values
+	Steps:
+		1). In the shell, type "python run.py"
+		2). If the python script doesn't work, type:
+			a). "sqlite3 factorial.db < init.sql"
+			b). "sqlite3 factorial.db < values.sql"
+		3). Use sqlite3 to query the database, for example:
+			a). "sqlite3 factorial.db"
+			b). "select * from factorial"
+	
+Files:
+	VERSION.txt:
+		Contains the version information of the sqlite build
+		I used to write this
+	README:
+		This file
+	run.py:
+		An (optional) python script given as a shortcut way to
+		run the commands. 
+	values.sql:
+		Test data
+	init.sql:
+		Initialize the database to insert values in it. This file
+		contains all the code used to write the recursive triggers
+		and such.
+	factorial.db:
+		The result of running run.py on my computer. You can compare
+		and contrast results if you'd like.
+	factorial.bak:
+		A backup database file. Same thing as above. 
