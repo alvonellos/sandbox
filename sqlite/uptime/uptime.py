@@ -20,7 +20,7 @@ def test_port(ip_address, port, timeout=3):
     else: 
 		return False
 
-def test_all():
+def test_all(host_list, port):
 	for host in host_list: 
 		if test_port(gethostbyname(host), port): 
 			print 'Successfully connected to ', 
@@ -35,8 +35,7 @@ def main():
 
 	ssql = "CREATE TABLE IF NOT EXISTS LOG (ID INTEGER PRIMARY KEY AUTOINCREMENT,\
 			ENTRYDATE DATETIME, ROUTER TEXT, GOOGLE TEXT)"
-	trig = 
-	"""
+	trig = """
 	CREATE TRIGGER IF NOT EXISTS update_datetime AFTER INSERT ON LOG
 	BEGIN
 		UPDATE LOG SET ENTRYDATE = DATETIME('NOW') WHERE rowid = new.rowid;
@@ -51,7 +50,8 @@ def main():
 			router = str(test_port(gethostbyname(host_list[1]), port))
 			google = str(test_port(gethostbyname(host_list[0]), port))
 			cur.executemany("INSERT INTO LOG (ROUTER, GOOGLE) VALUES(?,?)", zip([router], [google]))		
-			time.sleep(1)
+		#	time.sleep(1)
+			conn.commit()
 	except KeyboardInterrupt:
 		print 'Interrupt caught, terminating'
 		conn.commit()
