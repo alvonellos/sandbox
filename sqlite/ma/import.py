@@ -3,7 +3,8 @@ import glob
 import os.path
 
 files = r'F:/Alex Stuff/Dropbox/ascii/'
-listing = glob.glob(files + '*.TXT')
+file  = r'~/Dropbox\ Folders/george62\@earthlink.net/Dropbox/ascii/'
+listing = glob.glob(file + '*.TXT')
 tables =  [os.path.split(y)[1] for y in [os.path.splitext(x)[0] for x in listing]]
 print tables
 db = './data.db'
