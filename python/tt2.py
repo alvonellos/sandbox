@@ -13,7 +13,7 @@ def explore():
         print sorted(values.items()), expr.subs(values)
     print table(expr_string)
 
-def table(expr_string, variables):
+def table2(expr_string, variables):
     expr = sympify(expr_string)
     variables = sorted(variables)
     table = []
@@ -49,19 +49,22 @@ def get_row_defs(expr_list):
     rows += ['['+str(y)+']' for y in expr_list]
     return rows
 
-def truth_table(expr_list):
-	table = []
-	variables = get_free_vars(expr_list)
-#	for truth_values in list(variations([True, False], len(variables), True)):
-	return
 
 if __name__ == "__main__":
 	expr_list = get_expr_list()
-	print expr_list
 	free_vars = get_free_vars(expr_list)
-	print "free vars: " + str(free_vars)
-	print "row defs: " + str(get_row_defs(expr_list))
-	for expr in expr_list:
-		print expr
-		print table(expr, sympify(expr).free_symbols)	
-	
+#	print "free vars: " + str(free_vars)
+#	print "row defs: " + str(get_row_defs(expr_list))
+
+	table  = [] #[free_vars + expr_list]
+	for truth_values in list(variations([True, False], len(free_vars), True)):
+		buf = []
+		values = dict(zip(free_vars, truth_values))
+		buf.append(sorted(values.itervalues()))
+		for expr in expr_list:
+			buf.append(sympify(expr).subs(values))
+
+		table.append(buf)
+	print str(get_row_defs(expr_list))
+	for row in table:
+		print row
